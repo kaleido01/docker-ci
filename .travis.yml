@@ -7,3 +7,17 @@ before_install:
 
 script:
   - docker run -e CI=true kaleido01/docker-ci yarn test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  redion: "us-east-2"
+  app: "docker-ci"
+  env: "DockerCi-env"
+  bucket_name: "elasticbeanstalk-us-east-2-145160279582"
+  bucket_path: "docker-ci"
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
